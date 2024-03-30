@@ -1344,3 +1344,4 @@ Error occurred at line 3449 in Function <code>handle_error</code>. Error message
 #3 /wordpress/wp-admin/options.php(2): update_option('product_listing...', NULL)
 #4 {main}</pre>
  for query UPDATE `wp_options` SET `option_value` = NULL WHERE `option_name` = 'product_listing_url' made by update_option, WP_SQLite_DB->query, WP_SQLite_DB->print_error
+[30-Mar-2024 08:17:11 UTC] PHP Deprecated:  Hook http_api_transports is deprecated since version 6.4.0 with no alternative available. in /wordpress/wp-includes/functions.php on line 140
