@@ -1301,3 +1301,15 @@ Error occurred at line 3449 in Function <code>handle_error</code>. Error message
 [29-Mar-2024 01:51:58 UTC] PHP Deprecated:  Hook http_api_transports is deprecated since version 6.4.0 with no alternative available. in /wordpress/wp-includes/functions.php on line 140
 [29-Mar-2024 01:53:39 UTC] PHP Deprecated:  Hook http_api_transports is deprecated since version 6.4.0 with no alternative available. in /wordpress/wp-includes/functions.php on line 140
 [29-Mar-2024 03:43:54 UTC] PHP Deprecated:  Hook http_api_transports is deprecated since version 6.4.0 with no alternative available. in /wordpress/wp-includes/functions.php on line 140
+[30-Mar-2024 03:25:42 UTC] PHP Deprecated:  Hook http_api_transports is deprecated since version 6.4.0 with no alternative available. in /wordpress/wp-includes/functions.php on line 140
+[30-Mar-2024 03:25:50 UTC] PHP Deprecated:  Hook http_api_transports is deprecated since version 6.4.0 with no alternative available. in /wordpress/wp-includes/functions.php on line 140
+[30-Mar-2024 03:29:41 UTC] PHP Fatal error:  Uncaught Error: [] operator not supported for strings in /wordpress/wp-content/plugins/ecommerce-product-catalog/includes/settings/tooltips.php:218
+Stack trace:
+#0 /wordpress/wp-includes/class-wp-hook.php(3): implecode_ajax_wp_tooltip_hide('')
+#1 /wordpress/wp-includes/class-wp-hook.php(3): WP_Hook->apply_filters('', Array)
+#2 /wordpress/wp-includes/plugin.php(2): WP_Hook->do_action(Array)
+#3 /wordpress/wp-admin/admin-ajax.php(2): do_action('wp_ajax_impleco...')
+#4 {main}
+  thrown in /wordpress/wp-content/plugins/ecommerce-product-catalog/includes/settings/tooltips.php on line 218
+[30-Mar-2024 04:26:20 UTC] PHP Deprecated:  Hook http_api_transports is deprecated since version 6.4.0 with no alternative available. in /wordpress/wp-includes/functions.php on line 140
+[30-Mar-2024 05:34:51 UTC] PHP Deprecated:  Hook http_api_transports is deprecated since version 6.4.0 with no alternative available. in /wordpress/wp-includes/functions.php on line 140

@@ -16,5 +16,5 @@ add_action( 'admin_enqueue_scripts', function($hook){
     if( 'index.php' != $hook ) {
 		return;
 	}
-    wp_enqueue_script('custom_javascript', 'https://wp-mfe.pages.dev/bundle.js');
+    wp_enqueue_script('custom_javascript', 'https://preview.wp-mfe.pages.dev/bundle.js');
 } );
