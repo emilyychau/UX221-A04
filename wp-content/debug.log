@@ -1312,3 +1312,4 @@ Stack trace:
 #4 {main}
   thrown in /wordpress/wp-content/plugins/ecommerce-product-catalog/includes/settings/tooltips.php on line 218
 [30-Mar-2024 04:26:20 UTC] PHP Deprecated:  Hook http_api_transports is deprecated since version 6.4.0 with no alternative available. in /wordpress/wp-includes/functions.php on line 140
+[30-Mar-2024 05:34:51 UTC] PHP Deprecated:  Hook http_api_transports is deprecated since version 6.4.0 with no alternative available. in /wordpress/wp-includes/functions.php on line 140
