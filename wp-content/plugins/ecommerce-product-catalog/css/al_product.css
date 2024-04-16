@@ -1452,7 +1452,7 @@ div.setting-content table td.longer {
     color: #06C;
 }
 
-.al-box a.button {
+.al-box :not(.login_button) a.button {
     color: #000;
     border: 1px solid #000;
     padding: 5px;

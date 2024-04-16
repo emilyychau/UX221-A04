@@ -277,8 +277,8 @@ jQuery(document).ready(function () {
 
 jQuery(window).on('load', function () {
     setTimeout(function () {
-        if (jQuery('#al_product_short_desc').length && jQuery('#al_product_short_desc .inside .mce-tinymce').length === 0 && typeof tinymce !== 'undefined') {
-            if (typeof tinyMCEPreInit.mceInit['excerpt'] !== 'undefined') {
+        if (jQuery('#al_product_short_desc').length && jQuery('#al_product_short_desc .html-active').length === 0 && jQuery('#al_product_short_desc .inside .mce-tinymce').length === 0 && typeof tinymce !== 'undefined') {
+            if (typeof tinyMCEPreInit.mceInit['excerpt'] !== 'undefined' && typeof tinyMCEPreInit.mceInit['excerpt'].wp_skip_init !== 'undefined' && tinyMCEPreInit.mceInit['excerpt'].wp_skip_init) {
                 tinymce.init(tinyMCEPreInit.mceInit['excerpt']);
             }
         }
