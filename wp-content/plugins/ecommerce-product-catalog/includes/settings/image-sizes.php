@@ -163,7 +163,7 @@ function ic_add_catalog_image_sizes() {
 	$image_sizes = ic_get_catalog_image_sizes();
 	add_image_size( 'classic-grid-listing', $image_sizes['classic_grid_image_w'], $image_sizes['classic_grid_image_h'] );
 	add_image_size( 'classic-list-listing', $image_sizes['classic_list_image_w'], $image_sizes['classic_list_image_h'] );
-	add_image_size( 'modern-grid-listing', $image_sizes['modern_grid_image_w'], $image_sizes['modern_grid_image_h'], true );
+	add_image_size( 'modern-grid-listing', $image_sizes['modern_grid_image_w'], $image_sizes['modern_grid_image_h'], apply_filters( 'ic_modern_grid_crop', true ) );
 	add_image_size( 'product-page-image', $image_sizes['product_page_image_w'], $image_sizes['product_page_image_h'] );
 	add_image_size( 'product-category-page-image', $image_sizes['product_category_page_image_w'], $image_sizes['product_category_page_image_h'] );
 	do_action( 'add_catalog_image_sizes', $image_sizes );

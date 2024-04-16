@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class ic_settings_search {
 
-	private $search_word = '', $points;
+	private $search_word = '', $points, $exploded_search_word;
 
 	function __construct() {
 		add_action( 'ic_settings_top', array( $this, 'search_html' ) );

@@ -24,9 +24,10 @@ if ( ! empty( $price ) || $raw_price !== '' ) {
 	if ( function_exists( 'design_schemes' ) ) {
 		$class .= ' ' . design_schemes( null, 0 );
 	}
-
+	$container_class = apply_filters( 'ic_price_container_class', 'price-container', $product_id );
+	$container_attr  = apply_filters( 'ic_price_container_attr', '', $product_id );
 	?>
-    <div class="price-container">
+    <div class="<?php echo $container_class ?>"<?php echo $container_attr ?>>
 		<?php do_action( 'before_price_table', $product_id ) ?>
         <table class="price-table">
 			<?php do_action( 'price_table_start', $product_id ) ?>

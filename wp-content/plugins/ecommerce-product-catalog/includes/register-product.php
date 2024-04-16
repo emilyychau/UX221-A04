@@ -17,11 +17,15 @@ class ic_register_product {
 	function __construct() {
 		add_action( 'register_catalog_styles', array( $this, 'frontend_scripts' ) );
 		add_action( 'init', array( $this, 'ic_create_product' ), 4 );
+
 		//add_action( 'init', array( $this, 'register_meta' ) );
 		add_action( 'admin_head', array( $this, 'product_icons' ) );
+
+
 		add_action( 'post_updated', array( $this, 'implecode_save_products_meta' ), 1, 3 );
 		add_action( 'transition_post_status', array( $this, 'status_change' ), 10, 3 );
 		add_action( 'current_screen', array( $this, 'edit_screen' ) );
+
 
 		add_filter( 'generate_rewrite_rules', array( $this, 'rewrite_rules' ) );
 
@@ -30,14 +34,14 @@ class ic_register_product {
 		add_filter( 'use_block_editor_for_post', array( $this, 'can_gutenberg' ), 999, 2 );
 		add_filter( 'gutenberg_can_edit_post', array( $this, 'can_gutenberg' ), 999, 2 );
 
+
 		add_action( 'wp_print_scripts', array( $this, 'structured_data' ) );
 		if ( defined( 'IC_COMPRESS_PRIVATE_PRODUCTS_DATA' ) && ! empty( IC_COMPRESS_PRIVATE_PRODUCTS_DATA ) ) {
 			add_filter( 'get_post_metadata', array( $this, 'hidden_product_data' ), 10, 4 );
 		}
 
 		add_action( 'ic_scheduled_hidden_data_processing', array( $this, 'process_hidden_data' ) );
-
-
+        
 		require_once( AL_BASE_PATH . '/includes/product-categories.php' );
 	}
 

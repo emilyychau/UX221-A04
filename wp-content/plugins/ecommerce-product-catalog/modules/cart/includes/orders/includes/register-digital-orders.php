@@ -98,8 +98,8 @@ class ic_orders {
 		$payment_details = ic_get_order_payment_details( $post->ID );
 		$order_id        = get_post_meta( $post->ID, '_order_id' );
 		if ( empty( $payment_details['name'] ) && isset( $_GET['payment_details'] ) ) {
-			$payment_details         = isset( $_GET['payment_details'] ) ? url_to_array( $_GET['payment_details'] ) : '';
-			$payment_details['date'] = current_time();
+			$payment_details         = isset( $_GET['payment_details'] ) ? ic_sanitize_order_payment_details( url_to_array( $_GET['payment_details'] ) ) : '';
+			$payment_details['date'] = current_time( 'timestamp' );
 		}
 		//$req_fields	 = get_eo_required_fields();
 		//$disp_fields = get_option( 'disp_fields', unserialize( DEFAULT_DISP_FIELDS ) );
@@ -133,7 +133,7 @@ class ic_orders {
 								foreach ( $statuses as $name => $status ) {
 									?>
                                     <option name="payment_status[<?php echo $name ?>]"
-                                            value="<?php echo $name ?>" <?php selected( $name, $payment_details['status'] ) ?> ><?php echo $status ?></option>
+                                            value="<?php echo $name ?>" <?php selected( $name, esc_attr( $payment_details['status'] ) ) ?> ><?php echo $status ?></option>
 									<?php
 								}
 								?>
@@ -151,7 +151,7 @@ class ic_orders {
                                 <label for="payment_details_date"><?php _e( 'Date', 'ecommerce-product-catalog' ) ?>
                                     : <?php echo date( get_option( 'date_format' ), $payment_details['date'] ); ?></label>
                                 <input type="hidden" name="payment_details_date"
-                                       value="<?php echo $payment_details['date'] ?>"/>
+                                       value="<?php echo esc_attr( $payment_details['date'] ) ?>"/>
                             </td>
                         </tr>
 						<?php
@@ -165,9 +165,9 @@ class ic_orders {
                         </tr>
                         <tr>
                             <td>
-								<?php echo __( 'Currency', 'ecommerce-product-catalog' ) . ': ' . $payment_details['currency']; ?>
+								<?php echo __( 'Currency', 'ecommerce-product-catalog' ) . ': ' . esc_attr( $payment_details['currency'] ); ?>
                                 <input type=hidden name="payment_details_currency"
-                                       value="<?php echo $payment_details['currency'] ?>"/>
+                                       value="<?php echo esc_attr( $payment_details['currency'] ) ?>"/>
                             </td>
                         </tr>
 						<?php
@@ -199,7 +199,7 @@ class ic_orders {
                                         for="payment_details_shipping_email"><?php _e( 'Shipping Email', 'ecommerce-product-catalog' ) ?>
                                     <span class="star"> *</span></label>
                                 <input type="text" required="required" name="payment_details_shipping_email"
-                                       value="<?php echo $payment_details['shipping_email'] ?>"/>
+                                       value="<?php echo esc_attr( $payment_details['shipping_email'] ) ?>"/>
                             </td>
                         </tr>
 						<?php
@@ -219,12 +219,13 @@ class ic_orders {
                             <td><?php _e( 'VAT Address', 'ecommerce-product-catalog' ) ?>:</td>
                             <td><?php $payment_details['vat_address'] = ic_format_vat_address( $payment_details['vat_address'] ); ?>
                                 <textarea
-                                        name="payment_details_vat_address"><?php echo $payment_details['vat_address'][0] ?><?php if ( $payment_details['vat_address'][1] != '' )
-										echo '&#10;' . $payment_details['vat_address'][1] ?></textarea></td>
+                                        name="payment_details_vat_address"><?php echo esc_texarea( $payment_details['vat_address'][0] ) ?><?php if ( $payment_details['vat_address'][1] != '' )
+										echo '&#10;' . esc_texarea( $payment_details['vat_address'][1] ) ?></textarea>
+                            </td>
                         </tr>
                         <tr>
                             <td><?php _e( 'Ver. ID', 'ecommerce-product-catalog' ) ?>:</td>
-                            <td><?php echo $payment_details['vat_ver_id'] ?></td>
+                            <td><?php echo esc_attr( $payment_details['vat_ver_id'] ) ?></td>
                         </tr>
 						<?php
 					}
@@ -469,7 +470,7 @@ class ic_orders {
                         <td>
 							<?php echo price_format( $order_summary['total_net'] ) ?>
                             <input type="hidden" name="order_summary[total_net]"
-                                   value="<?php echo $order_summary['total_net'] ?>"/>
+                                   value="<?php echo esc_attr( $order_summary['total_net'] ) ?>"/>
                         </td>
                     </tr>
 				<?php } ?>
@@ -480,7 +481,8 @@ class ic_orders {
                         <td><?php _e( 'Order Tax', 'ecommerce-product-catalog' ) ?>:</td>
                         <td>
 							<?php echo price_format( $order_summary['tax'] ) ?>
-                            <input type="hidden" name="order_summary[tax]" value="<?php echo $order_summary['tax'] ?>"/>
+                            <input type="hidden" name="order_summary[tax]"
+                                   value="<?php echo esc_attr( $order_summary['tax'] ) ?>"/>
                         </td>
                     </tr>
 				<?php } ?>
@@ -490,7 +492,7 @@ class ic_orders {
                         <td>
 							<?php echo price_format( $order_summary['handling'] ) ?>
                             <input type="hidden" name="order_summary[handling]"
-                                   value="<?php echo $order_summary['handling'] ?>"/>
+                                   value="<?php echo esc_attr( $order_summary['handling'] ) ?>"/>
                         </td>
                     </tr>
 				<?php } ?>
@@ -500,7 +502,7 @@ class ic_orders {
                         <td>
 							<?php echo price_format( $order_summary['price'] ) ?>
                             <input type="hidden" name="order_summary[price]"
-                                   value="<?php echo $order_summary['price'] ?>"/>
+                                   value="<?php echo esc_attr( $order_summary['price'] ) ?>"/>
                         </td>
                     </tr>
 				<?php } ?>
@@ -516,7 +518,7 @@ class ic_orders {
 			}
 			?>
             <input type="text" required="required" name="order_summary[email]"
-                   value="<?php echo $order_summary['email'] ?>"/>
+                   value="<?php echo esc_attr( $order_summary['email'] ) ?>"/>
         </div>
 		<?php
 		do_action( 'digital-order-summary', $post->ID );

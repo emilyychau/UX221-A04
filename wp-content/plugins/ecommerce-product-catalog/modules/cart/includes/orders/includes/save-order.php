@@ -106,7 +106,7 @@ class ic_orders_save {
 			?>
             <tr>
                 <td><?php echo __( 'Payment Gateway', 'ecommerce-product-catalog' ) ?>
-                    : <?php echo $payment_details['payment_label'] ?></td>
+                    : <?php echo esc_attr( $payment_details['payment_label'] ) ?></td>
             </tr>
 			<?php
 		}
@@ -114,7 +114,7 @@ class ic_orders_save {
 			?>
             <tr>
                 <td><?php echo __( 'Payment ID', 'implecode-shopping-cart' ) ?>
-                    : <?php echo $payment_details['payment_id'] ?></td>
+                    : <?php echo esc_attr( $payment_details['payment_id'] ) ?></td>
             </tr>
 			<?php
 		}

@@ -409,38 +409,38 @@ if ( ! defined( 'IC_FORMBUILDER_URL' ) ) {
 				$content .= '<div class="form_field table-cell ' . $field->field_type . '">';
 				if ( $field->field_type != 'paragraph' && $field->field_type != 'checkboxes' && $field->field_type != 'date' && $field->field_type != 'radio' && $field->field_type != 'dropdown' && $field->field_type != 'section_break' && ! ic_string_contains( $field->field_type, 'dropdown' ) ) {
 					$added   = true;
-					$content .= '<div class="label"><label for="' . $field->cid . '">' . $field->label . '</label></div><div class="field"><span><input class="input" ' . $required . ' type="' . $field->field_type . '" name="' . $field->cid . '" value="' . $field_value . '" /></span></div>';
+					$content .= '<div class="label"><label for="' . esc_attr( $field->cid ) . '">' . $field->label . '</label></div><div class="field"><span><input class="input" ' . $required . ' type="' . esc_attr( $field->field_type ) . '" name="' . esc_attr( $field->cid ) . '" value="' . esc_attr( $field_value ) . '" /></span></div>';
 				} else if ( $field->field_type == 'checkboxes' ) {
 					$added   = true;
-					$content .= '<div class="label"><label for="' . $field->cid . '">' . $field->label . '</label></div><div class="field">';
+					$content .= '<div class="label"><label for="' . esc_attr( $field->cid ) . '">' . $field->label . '</label></div><div class="field">';
 					foreach ( $field->field_options->options as $radio_option ) {
 						if ( is_array( $field_value ) && in_array( htmlspecialchars( sanitize_text_field( $radio_option->label ) ), $field_value ) ) {
 							$checked = 'checked';
 						} else {
 							$checked = '';
 						}
-						$content .= '<input class="input" value="' . $radio_option->label . '" ' . $checked . ' type="checkbox" name="' . $field->cid . '[]" /> ' . $radio_option->label . $line;
+						$content .= '<input class="input" value="' . esc_attr( $radio_option->label ) . '" ' . $checked . ' type="checkbox" name="' . esc_attr( $field->cid . '[]' ) . '" /> ' . $radio_option->label . $line;
 					}
 					$content .= '</div>';
 				} else if ( $field->field_type == 'date' ) {
 					$added   = true;
-					$content .= '<div class="label"><label for="' . $field->cid . '">' . $field->label . '</label></div><div class="field"><input class="input date" ' . $required . ' type="text" name="' . $field->cid . '" value="' . $field_value . '" /></div>';
+					$content .= '<div class="label"><label for="' . $field->cid . '">' . $field->label . '</label></div><div class="field"><input class="input date" ' . $required . ' type="text" name="' . esc_attr( $field->cid ) . '" value="' . esc_attr( $field_value ) . '" /></div>';
 				} else if ( $field->field_type == 'radio' ) {
 					$added   = true;
-					$content .= '<div class="label"><label for="' . $field->cid . '">' . $field->label . '</label></div><div class="field">';
+					$content .= '<div class="label"><label for="' . esc_attr( $field->cid ) . '">' . $field->label . '</label></div><div class="field">';
 					foreach ( $field->field_options->options as $radio_option ) {
 						if ( $radio_option->label == $field_value ) {
 							$checked = 'checked';
 						} else {
 							$checked = '';
 						}
-						$content .= '<input class="input" value="' . $radio_option->label . '" ' . $checked . ' type="' . $field->field_type . '" name="' . $field->cid . '" /> ' . $radio_option->label . $line;
+						$content .= '<input class="input" value="' . esc_attr( $radio_option->label ) . '" ' . $checked . ' type="' . esc_attr( $field->field_type ) . '" name="' . esc_attr( $field->cid ) . '" /> ' . $radio_option->label . $line;
 					}
 					$content .= '</div>';
 				} else if ( $field->field_type == 'dropdown' || ic_string_contains( $field->field_type, 'dropdown' ) ) {
 					$added   = true;
-					$content .= '<div class="label"><label for="' . $field->cid . '">' . $field->label . '</label></div><div class="field">';
-					$content .= '<select class="' . $required . '" name="' . $field->cid . '">';
+					$content .= '<div class="label"><label for="' . esc_attr( $field->cid ) . '">' . $field->label . '</label></div><div class="field">';
+					$content .= '<select class="' . $required . '" name="' . esc_attr( $field->cid ) . '">';
 					foreach ( $field->field_options->options as $radio_option ) {
 						$find_option_value = isset( $radio_option->value ) ? $radio_option->value : $radio_option->label;
 						$label             = apply_filters( 'ic_formbuilder_dorpdown_option_value', $find_option_value, $field->cid );
@@ -449,13 +449,13 @@ if ( ! defined( 'IC_FORMBUILDER_URL' ) ) {
 						} else {
 							$checked = '';
 						}
-						$content .= '<option ' . $checked . ' value="' . $label . '">' . $radio_option->label . '</option>';
+						$content .= '<option ' . $checked . ' value="' . esc_attr( $label ) . '">' . $radio_option->label . '</option>';
 					}
 					$content .= '</select>';
 					$content .= '</div>';
 				} else if ( $field->field_type != 'section_break' ) {
 					$added   = true;
-					$content .= '<div class="label"><label for="' . $field->cid . '">' . $field->label . '</label></div><div class="field"><textarea ' . $required . ' name="' . $field->cid . '">' . $field_value . '</textarea></div>';
+					$content .= '<div class="label"><label for="' . esc_attr( $field->cid ) . '">' . $field->label . '</label></div><div class="field"><textarea ' . $required . ' name="' . esc_attr( $field->cid ) . '">' . esc_textarea( $field_value ) . '</textarea></div>';
 				} else if ( $field->field_type == 'section_break' && ! empty( $raw_form ) ) {
 					if ( ! empty( $content ) ) {
 						$raw_form .= $content;

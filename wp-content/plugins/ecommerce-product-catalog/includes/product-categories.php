@@ -78,8 +78,9 @@ function ic_create_product_categories() {
 	);
 
 	register_taxonomy( 'al_product-cat', 'al_product', $args );
-	register_taxonomy_for_object_type( 'al_product-cat', 'al_product' );
+	//register_taxonomy_for_object_type( 'al_product-cat', 'al_product' );
 }
+
 
 function ic_update_category_count() {
 	$update_taxonomy = 'al_product-cat';
@@ -92,6 +93,7 @@ function ic_update_category_count() {
 	$update_terms = ic_get_terms( $get_terms_args );
 	wp_update_term_count_now( $update_terms, $update_taxonomy );
 }
+
 
 add_action( 'ic_pre_get_products_tax', 'ic_limit_products_to_current_cat' );
 
@@ -114,6 +116,7 @@ function ic_limit_products_to_current_cat( $query ) {
 		$query->set( 'tax_query', $tax_query );
 	}
 }
+
 
 add_action( 'ic_pre_get_products_listing', 'ic_limit_products_to_loose' );
 

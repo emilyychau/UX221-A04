@@ -221,7 +221,10 @@ function ic_should_digital_order_be_taxed( $order_id ) {
  * @return array
  */
 function ic_get_order_payment_details( $order_id ) {
-	$payment_details             = ic_decode_payment_details( get_post_meta( $order_id, '_payment_details', true ) );
+	return ic_sanitize_order_payment_details( ic_decode_payment_details( get_post_meta( $order_id, '_payment_details', true ) ) );
+}
+
+function ic_sanitize_order_payment_details( $payment_details ) {
 	$fields                      = ic_order_details_fields();
 	$fields[]                    = 'address';
 	$payment_details             = implecode_array_variables_init( $fields, $payment_details );

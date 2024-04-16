@@ -350,9 +350,11 @@ class ic_session {
 				)
 			);
 			wp_cache_set( $this->get_cache_prefix() . $this->_customer_id, $this->_data, $this->_cache_group, $this->_session_expiration - time() );
+			/*
 			if ( is_ic_ajax() ) {
 				set_transient( 'ic_clear_session_cache_' . $this->_customer_id, 1, MINUTE_IN_SECONDS );
 			}
+			*/
 			$this->_to_save = false;
 			if ( ! empty( $old_session_key ) && get_current_user_id() != $old_session_key && ! is_object( get_user_by( 'id', $old_session_key ) ) ) {
 				$this->delete_session( $old_session_key );
@@ -412,12 +414,12 @@ class ic_session {
 		}
 
 		$value = wp_cache_get( $this->get_cache_prefix() . $customer_id, $this->_cache_group );
-
-		if ( $value !== false && ! is_ic_ajax() && get_transient( 'ic_clear_session_cache_' . $this->_customer_id ) ) {
-			delete_transient( 'ic_clear_session_cache_' . $this->_customer_id );
-			$value = false;
-		}
-
+		/*
+				if ( $value !== false && ! is_ic_ajax() && get_transient( 'ic_clear_session_cache_' . $this->_customer_id ) ) {
+					delete_transient( 'ic_clear_session_cache_' . $this->_customer_id );
+					$value = false;
+				}
+		*/
 		if ( false === $value ) {
 			$value = $wpdb->get_var( $wpdb->prepare( "SELECT session_value FROM $this->_table WHERE session_key = %s", $customer_id ) ); // @codingStandardsIgnoreLine.
 
@@ -443,7 +445,6 @@ class ic_session {
 		global $wpdb;
 
 		wp_cache_delete( $this->get_cache_prefix() . $customer_id, $this->_cache_group );
-
 		$wpdb->delete(
 			$this->_table,
 			array(

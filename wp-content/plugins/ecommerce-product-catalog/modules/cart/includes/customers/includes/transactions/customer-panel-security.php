@@ -15,15 +15,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 class ic_customer_panel_security {
 
 	function __construct() {
-		add_action( 'after_setup_theme', array( __CLASS__, 'remove_admin_bar' ) );
+		add_action( 'ic_epc_loaded', array( __CLASS__, 'remove_admin_bar' ) );
 		add_action( 'admin_init', array( __CLASS__, 'stop_access_profile' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'remove_demo_menus' ) );
 		add_action( 'admin_init', array( __CLASS__, 'redirect_admin' ) );
-		add_filter( 'login_url', array( __CLASS__, 'login_url' ) );
+		add_filter( 'login_url', array( __CLASS__, 'login_url' ), 10, 3 );
+		add_filter( 'login_redirect', array( __CLASS__, 'login_url' ), 10, 3 );
 		add_action( 'wp_login_failed', array( __CLASS__, 'login_fail' ) );
 		add_action( 'authenticate', array( __CLASS__, 'check_password' ), 1, 3 );
 		add_filter( 'customer_login_actions', array( __CLASS__, 'login_errors' ) );
-		add_action( 'init', array( __CLASS__, 'set_session_ref' ), 1 );
+		//add_action( 'init', array( __CLASS__, 'set_session_ref' ), 1 );
+		add_filter( 'login_form_bottom', array( __CLASS__, 'set_session_ref' ), 1 );
 	}
 
 	/**
@@ -52,6 +54,9 @@ class ic_customer_panel_security {
 	static function redirect_admin() {
 		if ( is_ic_digital_customer() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && ! current_user_can( 'administrator' ) ) {
 			$url = ic_customer_panel_panel_url();
+			if ( is_ic_shopping_cart() || is_ic_shopping_order() ) {
+				$url = ic_current_page_url();
+			}
 			if ( ! empty( $url ) ) {
 				wp_redirect( $url );
 				exit;
@@ -59,9 +64,16 @@ class ic_customer_panel_security {
 		}
 	}
 
-	static function login_url( $url ) {
-		$panel_url = ic_customer_panel_panel_url();
-		if ( ! empty( $panel_url ) ) {
+	static function login_url( $url, $request, $user ) {
+		$panel_url   = ic_customer_panel_panel_url();
+		$customer_id = null;
+		if ( ! empty( $user->ID ) ) {
+			$customer_id = intval( $user->ID );
+		}
+		if ( is_ic_shopping_cart() || is_ic_shopping_order() ) {
+			$panel_url = ic_current_page_url();
+		}
+		if ( ! empty( $panel_url ) && is_ic_digital_customer( $customer_id ) && ! current_user_can( 'administrator' ) ) {
 			return $panel_url;
 		}
 
@@ -69,10 +81,12 @@ class ic_customer_panel_security {
 	}
 
 	static function login_fail( $username ) {
-		if ( empty( $_SESSION['referrer'] ) ) {
+		$ic_session = get_product_catalog_session();
+
+		if ( empty( $ic_session['referrer'] ) ) {
 			return;
 		}
-		$referrer = $_SESSION['referrer'];
+		$referrer = $ic_session['referrer'];
 		if ( ! empty( $referrer ) && ! strstr( $referrer, 'wp-login' ) && ! strstr( $referrer, 'wp-admin' ) && ! current_user_can( 'administrator' ) ) {
 			$url = ic_customer_panel_panel_url();
 			if ( ! empty( $url ) ) {
@@ -91,10 +105,11 @@ class ic_customer_panel_security {
 	 * @param string $password
 	 */
 	static function check_password( $login, $username, $password ) {
-		if ( empty( $_SESSION['referrer'] ) ) {
+		$ic_session = get_product_catalog_session();
+		if ( empty( $ic_session['referrer'] ) ) {
 			return;
 		}
-		$referrer = $_SESSION['referrer'];
+		$referrer = $ic_session['referrer'];
 		if ( ! empty( $referrer ) && ! strstr( $referrer, 'wp-login' ) && ! strstr( $referrer, 'wp-admin' ) ) {
 			if ( $username == "" || $password == "" ) {
 				$url = ic_customer_panel_panel_url();
@@ -129,9 +144,9 @@ class ic_customer_panel_security {
 	 * Define session referrer
 	 *
 	 */
-	static function set_session_ref() {
+	static function set_session_ref( $login_form = '' ) {
 		if ( is_admin() && ( function_exists( 'is_ic_ajax' ) && ! is_ic_ajax() ) ) {
-			return;
+			return $login_form;
 		}
 		$ic_session = get_product_catalog_session();
 		if ( isset( $ic_session['next_referrer'] ) ) {
@@ -147,6 +162,8 @@ class ic_customer_panel_security {
 // Save current page as next page's referrer
 		$ic_session['next_referrer'] = ic_current_page_url();
 		set_product_catalog_session( $ic_session );
+
+		return $login_form;
 	}
 
 }

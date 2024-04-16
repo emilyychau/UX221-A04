@@ -1,5 +1,341 @@
 == Changelog ==
 
+= 3.2.0 - 07/11/2022 =
+
+* Dynamically fetch the state list when the country is selected in checkout
+* Number field removed from the inquiry checkout
+* Welcome screen improvements for WordPress 6.1
+
+= 3.1.0 - 31/10/2022 =
+
+* Multiple WordPress blocks added to display the catalog parts
+* WordPress 6.1 compatibility update
+
+= 3.0.72 - 14/10/2022 =
+
+* Filters performance improvements
+* Welcome screen design improvement
+* Security update
+
+= 3.0.71 - 11/10/2022 =
+
+* Fix the price table block dependencies
+* Security update
+
+= 3.0.70 - 08/10/2022 =
+
+* Security update
+
+= 3.0.69 - 27/09/2022 =
+
+* Session handling improvements
+* Price block introduced
+* Fix double add to cart button for free products
+
+= 3.0.68 - 30/08/2022 =
+
+* Support for filtering multiple shortcodes on one page using the filters bar
+
+= 3.0.67 - 23/08/2022 =
+
+* Theme integration improvements
+
+= 3.0.66 - 16/08/2022 =
+
+* Fix the per_row parameter for the show_categories shortcode
+
+= 3.0.65 - 22/07/2022 =
+
+* Stop showing empty list message when unnecessary
+
+= 3.0.64 - 14/07/2022 =
+
+* Improved performance on the front-end and in the admin side
+* Improved size filter
+
+= 3.0.63 - 07/07/2022 =
+
+* Improved filters handling
+
+= 3.0.62 - 30/06/2022 =
+
+* Cart cache support improvements
+* Mutlilingual support improvements
+
+= 3.0.61 - 24/06/2022 =
+
+* Improved product block editor
+* Additional classes for attributes table
+* Order edit screen styling improvements
+
+= 3.0.60 - 13/06/2022 =
+
+* Improved session handling
+
+= 3.0.59 - 13/05/2022 =
+
+* WordPress 6.0 compatibility update
+
+= 3.0.58 - 28/04/2022 =
+
+* Magnifier and lightbox position fixed when body width is applied
+
+= 3.0.57 - 15/04/2022 =
+
+* Session handling improvements
+
+= 3.0.56 - 08/04/2022 =
+
+* Fix the plugin activation notice
+
+= 3.0.55 - 07/04/2022 =
+
+* AJAX filters handling improvements
+* SiteGround CSS and JS optimization compatibility
+
+= 3.0.54 - 17/03/2022 =
+
+* Elementor compatibility update
+
+= 3.0.53 - 15/03/2022 =
+
+* Multiple improvements for event better performance
+* Improved ajax filters handling
+
+= 3.0.52 - 07/03/2022 =
+
+* A new [catalog_filters_bar] shortcode to show the catalog filters bar widget area
+
+= 3.0.51 - 17/02/2022 =
+
+* Improved default product image assignment
+* Attributes sanitization changed to allow links in values
+
+= 3.0.50 - 11/02/2022 =
+
+* Fix page title on search results page for some themes
+
+= 3.0.49 - 07/02/2022 =
+
+* Fix recent price formatting issue when decimal is set to comma
+
+= 3.0.48 - 04/02/2022 =
+
+* The query for uncategorized products fixed
+* Fix the price without decimals
+
+= 3.0.47 - 26/01/2022 =
+
+* Fix styling error in product details when the formatted template is active
+* Ability to filter private products when logged in with the correct capabilities
+
+= 3.0.46 - 24/01/2022 =
+
+* Display more items in related categories section
+* Compatibility with WordPress 5.9
+
+= 3.0.45 - 17/01/2022 =
+
+* Fix catalog container width for some themes
+
+= 3.0.44 - 13/01/2022 =
+
+* A new option to display only main categories without loose products on main listing page
+* Separate label for free shipping
+
+= 3.0.43 - 16/12/2021 =
+
+* Fix error when adding a new product
+
+= 3.0.42 - 10/12/2021 =
+
+* Fix product duplication issue on some configurations
+* Multiple code adjustments for even better performance
+
+= 3.0.41 - 03/11/2021 =
+
+* New Product Attributes PRO addon compatibility
+
+= 3.0.40 - 02/11/2021 =
+
+* Performance improvements on search and filters
+* Added div container to wrap all catalog content
+
+= 3.0.39 - 18/10/2021 =
+
+* Performance - use WordPress object cache for some queries
+
+= 3.0.38 - 12/10/2021 =
+
+* Fixed rare error on outdated PHP versions
+
+= 3.0.37 - 28/09/2021 =
+
+* Improved multiligual support (Polylang)
+
+= 3.0.36 - 15/09/2021 =
+
+* Improved optimization for mobile
+
+= 3.0.35 - 06/09/2021 =
+
+* Improved multiligual support
+
+= 3.0.34 - 13/08/2021 =
+
+* Fix catalog blocks on widgets screen
+
+= 3.0.33 - 12/08/2021 =
+
+* Divi Builder compatibility improved
+* Size filter performance improved
+
+= 3.0.32 - 27/07/2021 =
+
+* Fix missing data on individual product page for some configurations
+
+= 3.0.31 - 23/07/2021 =
+
+* Improved Elementor support
+
+= 3.0.30 - 21/07/2021 =
+
+* WordPress 5.8 compatibility update
+
+= 3.0.29 - 09/07/2021 =
+
+* Fix the category description HTML
+
+= 3.0.28 - 22/06/2021 =
+
+* Fix template issues with structured data enabled
+
+= 3.0.27 - 14/06/2021 =
+
+* Attributes sorting improved
+
+= 3.0.26 - 21/05/2021 =
+
+* Improved price summary on the order edit screen
+* Improved tax rounding options
+
+= 3.0.25 - 10/05/2021 =
+
+* Fix the number showing up in header for some configurations
+
+= 3.0.24 - 10/05/2021 =
+
+* Fix catalog blocks selector styling
+* Set duplicated product as draft
+* Automatically fill the user data in checkout if available
+
+= 3.0.23 - 13/04/2021 =
+
+* Fix Elementor compatibility
+
+= 3.0.22 - 09/04/2021 =
+
+* PHP 8 compatiblity
+
+= 3.0.21 - 22/03/2021 =
+
+* Display free shipping options when shippping price set to zero
+
+= 3.0.20 - 11/03/2021 =
+
+* Ability to edit labels for size and weight
+* WordPress compatibility update
+
+= 3.0.19 - 04/03/2021 =
+
+* Checkbox for privacy terms acceptance if WordPress privacy terms page is configured
+* Order history date format according to WordPress settings
+
+= 3.0.18 - 12/02/2021 =
+
+* Security - fixed nonce check
+
+= 3.0.17 - 09/02/2021 =
+
+* Variations selector fixed
+
+= 3.0.16 - 03/02/2021 =
+
+* Ability to enable Gutenberg editor for product description
+* Improved support for non latin characters in catalog slugs
+* Theme breadcrumbs compatibility improvements
+* Product search and product categories blocks added
+
+= 3.0.15 - 12/01/2021 =
+
+* Fix breadcrumbs data attributes
+
+= 3.0.14 - 22/12/2020 =
+
+* Compatibility update
+
+= 3.0.13 - 09/12/2020 =
+
+* Fix the unnecessary popup message on product edit screen in WordPress 5.6
+
+= 3.0.12 - 09/12/2020 =
+
+* Fixed saving zero values on product edit screen
+* Improved page builder and theme support
+* WordPress 5.6 compatibility update
+
+= 3.0.11 - 26/11/2020 =
+
+* Outdated PHP compatibility errors fixed
+
+= 3.0.10 - 18/11/2020 =
+
+* Support for payment gateways in web store mode
+
+= 3.0.9 - 04/11/2020 =
+
+* Multilingual compatibility improvements
+* Product filters fix for certain configurations
+
+= 3.0.8 - 21/10/2020 =
+
+* Better Elementor support
+* Ability to force the category page header display
+
+= 3.0.7 - 16/10/2020 =
+
+* Affiliate button support for products without price
+
+= 3.0.6 - 13/10/2020 =
+
+* Fix eCommerce Product Catalog pagination on some configurations
+
+= 3.0.5 - 12/10/2020 =
+
+* Translation improvements
+
+= 3.0.4 - 05/10/2020 =
+
+* eCommerce Multilingual compatibility improvements
+
+= 3.0.3 - 28/09/2020 =
+
+* improved theme integration to support more themes
+
+= 3.0.2 - 24/09/2020 =
+
+* Minor eCommerce Product Catalog styling adjustments for better theme compatibility
+
+= 3.0.1 - 10/09/2020 =
+
+* Category filter fixed on product search
+
+= 3.0 - 27/08/2020 =
+
+* 3 additional eCommerce Product Catalog catalog modes: shopping cart, quote cart and affiliate button
+* New initial configuration tutorial and screen
+* Navigation bar added on category edit and product edit screens
+
 = 2.9.44 - 25/08/2020 =
 
 * Security - fixed nonce check

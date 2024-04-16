@@ -858,7 +858,7 @@ class ic_shortcode_catalog {
 			$wp_the_query = $pre_query;
 //			}
 
-			if ( ( is_ic_product_page() || is_ic_taxonomy_page() ) && ( empty( $this->settings['show_everywhere'] ) || $force || $this->is_inside_shortcode() ) ) { // added show everywhere check to keep Elementor HTML output
+			if ( ( is_ic_product_page() || is_ic_taxonomy_page() ) && ( ( ! is_ic_taxonomy_page() && empty( $this->settings['show_everywhere'] ) ) || $force || $this->is_inside_shortcode() ) ) { // added show everywhere check to keep Elementor HTML output
 				$post = $pre_post;
 			}
 

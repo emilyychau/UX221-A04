@@ -1119,48 +1119,105 @@ if ( ! function_exists( 'ic_license_renewal_button' ) ) {
 add_action( 'ic_catalog_admin_priority_notices', 'ic_license_renewal_notice' );
 
 function ic_license_renewal_notice() {
-	if ( function_exists( 'get_implecode_active_plugins' ) ) {
-		$license_owner_param = get_option( 'implecode_license_owner' );
-		$license_owner       = url_to_array( $license_owner_param );
-		if ( ! empty( $license_owner['valid_until'] ) ) {
-			$valid_until_time = strtotime( $license_owner['valid_until'] );
-			$current_time     = date( 'U' );
-			if ( $valid_until_time > $current_time ) {
-				$in_to_weeks = $valid_until_time - ( WEEK_IN_SECONDS * 2 );
-				if ( $current_time > $in_to_weeks ) {
-					$message = __( 'Your license will expire soon. Use the button below to prevent it, so the updates work without any interruptions.', 'ecommerce-product-catalog' );
-				} else {
-					$all_ic_plugins = get_implecode_active_plugins();
-					foreach ( $all_ic_plugins as $plugin ) {
-						if ( ! is_plugin_license_active( $plugin['slug'] ) ) {
-							//$message = __( 'Your license is expired. Use the button below to fix it. The latest security and feature updates cannot be applied without an active license.', 'ecommerce-product-catalog' );
-							break;
-						}
-					}
-				}
-			} else {
-				$message = __( 'Your license is expired. The latest security and feature updates cannot be applied without an active license.', 'ecommerce-product-catalog' );
-				$message .= '<br>' . __( 'Use the button below to fix it.', 'ecommerce-product-catalog' );
-			}
-		} else {
-			$message = __( 'Your license is expired. The latest security and feature updates cannot be applied without an active license.', 'ecommerce-product-catalog' );
-			$message .= '<br>' . __( 'Use the button below to fix it.', 'ecommerce-product-catalog' );
+	if ( ! function_exists( 'get_implecode_active_plugins' ) ) {
+		return;
+	}
+	if ( ic_is_license_valid() ) {
+		if ( ic_license_will_expire_soon() ) {
+			$message = __( 'Your license will expire soon. Use the button below to prevent it, so the updates work without any interruptions.', 'ecommerce-product-catalog' );
 		}
-		if ( empty( $message ) ) {
-			return;
-		}
-		?>
-        <div class="error notice-updated is-dismissible ic-notice" data-ic_dismissible="notice-ic-catalog-welcome">
-            <div class="squeezer">
-				<?php
-				echo '<p>' . $message . '</p>';
-				echo '<p>';
-				ic_license_renewal_button();
-				echo '</p>';
-				?>
-            </div>
+	} else {
+		$message = __( 'Your license is expired. The latest security and feature updates cannot be applied without an active license.', 'ecommerce-product-catalog' );
+		$message .= '<br>' . __( 'Use the button below to fix it.', 'ecommerce-product-catalog' );
+	}
+	if ( empty( $message ) ) {
+		return;
+	}
+	?>
+    <div class="error notice-updated is-dismissible ic-notice" data-ic_dismissible="notice-ic-catalog-welcome">
+        <div class="squeezer">
+			<?php
+			echo '<p>' . $message . '</p>';
+			echo '<p>';
+			ic_license_renewal_button();
+			echo '</p>';
+			do_action( 'ic_license_expiration_message' );
+			?>
         </div>
-		<?php
-		remove_action( 'admin_notices', 'license_key_expired' );
+    </div>
+	<?php
+	remove_action( 'admin_notices', 'license_key_expired' );
+}
+
+//add_action( 'ic_license_expiration_message', 'ic_license_reverify_schedule' );
+//add_action( 'ic_license_reverify_schedule', 'ic_license_reverify_schedule' );
+
+function ic_license_reverify_schedule() {
+	if ( ! function_exists( 'check_all_implecode_license' ) ) {
+		wp_unschedule_hook( 'ic_license_reverify_schedule' );
+
+		return;
+	}
+	if ( current_filter() !== 'ic_license_reverify_schedule' ) {
+		if ( ! wp_next_scheduled( 'ic_license_reverify_schedule' ) ) {
+			wp_schedule_event( time() + DAY_IN_SECONDS, 'twicedaily', 'ic_license_reverify_schedule' );
+		}
+
+		return;
+	}
+	check_all_implecode_license();
+	$unschedule = false;
+	$reschedule = false;
+	if ( ! function_exists( 'get_implecode_active_plugins' ) || ( ic_is_license_valid() && ! ic_license_will_expire_soon() ) ) {
+		$unschedule = true;
+	} else if ( function_exists( 'get_implecode_active_plugins' ) && ! ic_is_license_valid() ) {
+		$unschedule = true;
+		$reschedule = 'weekly';
+	}
+	if ( $unschedule ) {
+		wp_unschedule_hook( 'ic_license_reverify_schedule' );
+	}
+	if ( $reschedule ) {
+		$schedules = wp_get_schedules();
+		if ( ! empty( $schedules[ $reschedule ]['interval'] ) ) {
+			wp_schedule_event( time() + $schedules[ $reschedule ]['interval'], $reschedule, 'ic_license_reverify_schedule' );
+		}
 	}
 }
+
+function ic_license_valid_until() {
+	$license_owner_param = get_option( 'implecode_license_owner' );
+	$license_owner       = url_to_array( $license_owner_param );
+	if ( ! empty( $license_owner['valid_until'] ) ) {
+		return $license_owner['valid_until'];
+	}
+
+	return false;
+}
+
+function ic_is_license_valid() {
+	$valid_until = ic_license_valid_until();
+	if ( empty( $valid_until ) ) {
+		return false;
+	}
+	$valid_until_time = strtotime( $valid_until );
+	$current_time     = date( 'U' );
+	if ( $valid_until_time > $current_time ) {
+		return $valid_until_time;
+	} else {
+		return false;
+	}
+}
+
+function ic_license_will_expire_soon() {
+	if ( $valid_until_time = ic_is_license_valid() ) {
+		$current_time = date( 'U' );
+		$in_to_weeks  = $valid_until_time - ( WEEK_IN_SECONDS * 2 );
+		if ( $current_time > $in_to_weeks ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+

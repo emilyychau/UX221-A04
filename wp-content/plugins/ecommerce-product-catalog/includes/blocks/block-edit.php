@@ -63,7 +63,12 @@ class ic_epc_block_edit {
 
 	function modify_editor() {
 		if ( is_ic_edit_product_screen() || is_ic_new_product_screen() ) {
-			wp_enqueue_script( 'ic_epc_modify_editor', AL_PLUGIN_BASE_PATH . 'includes/blocks/js/modify-editor.js' . ic_filemtime( AL_BASE_PATH . '/includes/blocks/js/modify-editor.js' ), array( 'wp-edit-post' ), IC_EPC_VERSION, true );
+			global $wp_version;
+			if ( version_compare( $wp_version, 6.5 ) < 0 ) {
+				wp_enqueue_script( 'ic_epc_modify_editor', AL_PLUGIN_BASE_PATH . 'includes/blocks/js/modify-editor.js' . ic_filemtime( AL_BASE_PATH . '/includes/blocks/js/modify-editor.js' ), array( 'wp-edit-post' ), IC_EPC_VERSION, true );
+			} else {
+				wp_enqueue_script( 'ic_epc_modify_editor', AL_PLUGIN_BASE_PATH . 'includes/blocks/js/modify-editor-65.js' . ic_filemtime( AL_BASE_PATH . '/includes/blocks/js/modify-editor-65.js' ), array( 'wp-edit-post' ), IC_EPC_VERSION, true );
+			}
 		}
 	}
 
