@@ -6,3 +6,21 @@ Template:       twentytwentytwo
 
 (optional values you can add: Theme URI, Author URI, Version, License, License URI, Tags, Text Domain)
 */
+
+\\
+
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
+h1, h2, h3 {
+	font-family: "Jersey 25", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+p, h4 {
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
+	font-style: normal;
+}
