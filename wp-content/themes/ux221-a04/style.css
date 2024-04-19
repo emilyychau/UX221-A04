@@ -31,6 +31,6 @@ footer {
 
 }
 
-footer p class="wp-block-site-title", footer span, footer a {
-    color: white;
+footer p, footer span, footer a {
+    color: white !important;
 }
