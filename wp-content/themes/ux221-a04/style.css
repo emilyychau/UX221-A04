@@ -28,9 +28,7 @@ p, h4 {
 footer {
 	background-color: #1a4548;
 	color: white;
-	padding-left: 75px;
-	padding-right: 75px;
-    box-sizing: border-box;
+
 }
 
 footer p class="wp-block-site-title", footer span, footer a {
