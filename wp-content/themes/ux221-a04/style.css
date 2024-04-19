@@ -28,4 +28,12 @@ p, h4 {
 footer {
 	background-color: #1a4548;
 	color: white;
+	padding: 75px;
+    box-sizing: border-box;
+}
+
+footer p,
+footer span,
+footer a {
+    color: white;
 }
